@@ -16,11 +16,11 @@
   - $\phi = tan^{-1}(\dfrac{d}{2f})$
   - FOV = $2 \phi$
   - Larger $f$ $\implies$ smaller fow
-- Chromatic abberation
-- Spherical abberation
+- Chromatic abberation - different wave lengths refract at different angles and focus at slightly different distances
+- Spherical abberation - spherical lenses do not focus the light perfectly; rays close to the edge focus closer than those at the center
 - Vignetting
 - Radial distortion
-- Digital image - discretize image into pixels
+- Digital image - discretize image into pixels; quantize light into intensity levels
 - Visible light cams - photos cause charge on each sensor cell
   - CCD
     - Reads out charge serially and digitizes
@@ -83,6 +83,9 @@
   - Centroid
   - Major and minor axes
   - ...
+- Ideal descriptor:
+  - maps two images of the same object close-by in feature space
+  - maps two images of different object far away from each other
 
 # Image processing 2
 ## Color
@@ -168,9 +171,14 @@
 - Gradient points in the direction of the greatest intesnity change
   - Magnitude $\theta = \tan^{-1}(\dfrac{\frac{\partial f}{\partial y}}{\frac{\partial f}{\partial x}})$
   - Orientation $||\nabla f|| = \sqrt{\frac{\partial f}{\partial x}^2 + \frac{\partial f}{\partial y}^2}$
+- With derivation, noise gets amplified $\implies$ smooth first
 - Apply derivative kernel to Gaussian kernel
 
 ## From derivatives to edge detection
+- "Optimal" edge detector
+  - Good detection - minimum probability of false positives
+  - Good localization - detected edges should be close to the location of true edges
+  - Specificity - returns only a signle point per true edge
 - Canny edge detector
   - Filter an image by derivative of a Gaussian
   - Calculate gradient magnitude and orientation
@@ -319,11 +327,14 @@
 # Camera geometry
 - Extrinsic projection - 3D world to 3D camera
 - Intrinsic projection - 3D camera to 2D image
-- Homogeneous coordinates: $\begin{bmatrix}
+- Homogeneneous coordinates: $\begin{bmatrix}
     x \\ y
 \end{bmatrix} \rightarrow \begin{bmatrix}
     x \\ y \\ 1
 \end{bmatrix}$
+  - Point at infinity: $\begin{bmatrix}
+    x \\ y \\ 0
+  \end{bmatrix}$
 - Principal axis - a line from camera center perpendicular to the image plane
 - Principal point - a point where the principal axis punctures the image plane
 - Normalized (camera) coordinate system - 2D system with origin at the principal point
