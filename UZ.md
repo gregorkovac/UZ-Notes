@@ -200,16 +200,28 @@
 - Polar representation: $x\cos\theta - y\sin\theta = d$
   - $d$... distance from $[0,0]$
   - $\theta$...angle between $x$ axis and a perpendicular line from $[0,0]$ to our line
+  - Sinusoid in Hough space
   - Voting: $H[d, \theta] += 1$
 - Hough transform extensions
   - Use gradient direction instead of votin for all $\theta \in [0, 180]$
 - Hough transform for circles
   - $(x_i - a)^2 + (y_i - b)^2 = r^2$
+  - Cone in hough space; line if we know the gradient direction
   - Voting: $H[a, b, r] += 1$
 - Generalized Hough transform
   - Define the shape model by edge points and a reference point
   - For each edge point calculate the displacement vector to the reference point 
   - Collect displacements in table, indexed by gradient direction
+- Pros
+  - Can detect shapes even if they are partially ocluded
+  - Robust to noise
+  - Can detect multiple shapes in one image
+  - Can be easily modified to detect other shapes
+- Cons
+  - Can be computationally expensive (number of free parameters)
+  - Requires a large amount of memory
+  - May not be able to detect small shapes
+  - May be sensitive to choice of parameters, for example the number of bins
 
 # Fitting
 - Least squares
@@ -482,7 +494,7 @@
 - Projection of data $x_i$ into the new c.s.: $y_i = U^T(x_i - \mu)$
 - Projection of $y_i$ back into the original c.s.: $x_i = U y_i + \mu$
   - $U = [u_1, u_2]$ ... matrix of eigenvectors
-- PCA algorithm (data $X$ is a matrix of size $M \times N$)
+- PCA algorithm (data $X$ is a matrix of size $M \times N$, $M$ ... training sample size, $N$ ... number of training samples)
   - Estimate the mean vector $\mu = \frac{1}{N}\sum_{i = 1}^{N}x_i$
   - Center the input data around the mean $\hat{X}_i = X_i - \mu$
   - If $M \le N$
@@ -534,7 +546,21 @@
   - SVM
 - Recognition
   - Encode an image with the learned dictionary
-
+- R-CNN
+  - Get region with selective search
+  - Crop region and send it to a CNN
+  - Result: classification and box regression
+  - Problem: run each region through CNN $\implies$ slow
+-  Fast R-CNN
+   -  Extract features from whole image (use a feature extraction network)
+   -  For a region, cut out a volume from feature space and classify (use a multilayer perceptron - MLP)
+   -  Problem: selective search is slow
+- Faster R-CNN
+  - Replace selective search by a region  proposal network (RPN)
+  - Feature pyramid: extract features at multiple scales and merge them
+- Mask R-CNN
+  - After extracting the bounding box, predict the segmentation mask of the object
+  
 ## Object detection by feature constellations
 - Represent target model in terms of small "parts" that can be detected even under an affine deformatin
 - Detection by Generalized Hough Transform
