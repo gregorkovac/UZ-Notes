@@ -198,6 +198,8 @@
 - Hough space: $(x, y) \rightarrow (m, b)$
   - $y = m_0y + b_0$
 - Polar representation: $x\cos\theta - y\sin\theta = d$
+  - $d$... distance from $[0,0]$
+  - $\theta$...angle between $x$ axis and a perpendicular line from $[0,0]$ to our line
   - Voting: $H[d, \theta] += 1$
 - Hough transform extensions
   - Use gradient direction instead of votin for all $\theta \in [0, 180]$
@@ -550,3 +552,29 @@
 
 **Is Harris detector scale / rotation invariant. What about DoG? Why/Why not?**
 > The Harris corner detector is not scale-invariant, meaning that it may not be able to detect corners at different scales or sizes in an image. However, it is rotation-invariant, meaning that it can detect corners regardless of the angle at which they are oriented in the image. The Difference of Gaussian (DoG) detector, on the other hand, is both scale- and rotation-invariant. This is because the DoG detector works by taking the difference of two Gaussian-smoothed versions of the image, which effectively creates a scale-space representation of the image. This allows the detector to find features at different scales and orientations in the image.
+
+**What's the difference between the projection, calibration, homography, fundamental and essential matrices?**
+
+> Projection matrix - for projecting a 3D point in camera coordinate system to a 2D image plane point (pixels)
+> $P = \begin{bmatrix}
+    \alpha_x & s & x_0 & 0 \\
+    0 & \alpha_y & y_0 & 0 \\
+    0 & 0 & 1 & 0
+\end{bmatrix}$ 
+> $\alpha_x, \alpha_y$ ... focal length in pixels;
+> $x_0, y_0$ ... principal point coordinates in pixels;
+> $s$ ... skewing parameter (0 for rectangular grid)
+
+> Calibration matrix - Contains all intrinsic parameters of a camera and tells us how a 3D point in camera coordinate system is projected into pixels. Similar to projection matrix.
+> $K = \begin{bmatrix}
+    \alpha_x & s & x_0 \\
+    0 & \alpha_y & y_0\\
+    0 & 0 & 1
+\end{bmatrix}$ 
+>
+> Homography matrix - matrix that shows the relationship of the same planar object in two images
+>
+> Essential matrix - relates the translation and rotation of two cameras. It is used to obtain epipolar lines.
+> $E = [T_\times]R$; $T$... translation matrix of one camera relative to the other; $R$ ... rotation matrix of one camera relative to the other
+>
+> Fundamental matrix - relates corresponding points between two camera. It is used to establish correspondences between two images and to recover a 3D scene.
