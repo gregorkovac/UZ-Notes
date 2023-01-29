@@ -604,3 +604,40 @@
 > $E = [T_\times]R$; $T$... translation matrix of one camera relative to the other; $R$ ... rotation matrix of one camera relative to the other
 >
 > Fundamental matrix - relates corresponding points between two camera. It is used to establish correspondences between two images and to recover a 3D scene.
+
+**Describe the principle of how a sharpening filter with smoothing works.**
+> Convole with a Gaussian filter to smoothen. For sharpening we compare the smoothed image with the original. If the difference is big enough, we subtract them.
+
+**What is a weak calibration of a stereo system? Briefly describe its steps.**
+Weak calibration of a stereo system involves finding intrinsic and extrinsic parameters of two cameras.
+1. Intrinsic parameters
+2. Find relative position and orientation of cameras
+3. Find correspondences
+4. Triangulation
+
+# Formulas
+
+## Perspective projection equation
+
+$\dfrac{f}{-y'} = \dfrac{-z}{y}$
+- $f$ ... focal length
+- $y$ ... object height
+- $y'$ ... object height on film
+- $z$ ... distance from object to camera
+
+## RANSAC - number of iterations
+$N = \dfrac{\log(1-p)}{\log(1 - (1 - e)^s)}$
+- $p$ ... probability of drawing a sample with all inliers
+- $e$ ... proportion of outliers (probability of selecting an outlier at random)
+- $s$ ... sample size
+
+## Disparity
+$d = x_1 -x_2 = \dfrac{fT}{p_z}$
+- $d$ ... disparity
+- $x_1, x_2$ ... position of the point in left and right camera 
+- $f$ ... focal length
+- $T$ ... baseline - distance between cameras
+- $p_z$ ... $z$ coordinate of the point
+
+## Fundamental matrix projection
+$x_L \cdot F \cdot x_R$
