@@ -498,10 +498,10 @@
   - Estimate the mean vector $\mu = \frac{1}{N}\sum_{i = 1}^{N}x_i$
   - Center the input data around the mean $\hat{X}_i = X_i - \mu$
   - If $M \le N$
-    - Estimate the covariance matrix $C = \frac{1}{N}\hat{X}\hat{X}^T$
+    - Estimate the covariance matrix $C = \frac{1}{N - 1}\hat{X}\hat{X}^T$
     - Perform SVD on $C$ and get eigenvectors $U$ and eigenvalues $\lambda$
   - else
-    - Estimate the inner product matrix: $C' = \frac{1}{N}\hat{X}^T\hat{X}$
+    - Estimate the inner product matrix: $C' = \frac{1}{N - 1}\hat{X}^T\hat{X}$
     - Perform SVD on $C'$ and get $U'$ and $\lambda'$
     - Eigenvectors $U: u_i = \dfrac{\hat{X}u_i'}{\sqrt{N\lambda_i'}}, i = 1...N$
     - Eigenvalues $\lambda = \lambda'$
